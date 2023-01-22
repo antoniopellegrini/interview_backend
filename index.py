@@ -95,10 +95,15 @@ class Posts(Resource):
     def get(self):
         return  [post.json() for post in PostModel.get_all()],200
 
+class Root(Resource):
+    def get(self):
+        return {'message':"Hello world"},200
+
 @app.before_first_request
 def create_tables():
     db.create_all()
 
+api.add_resource(Root, '/')
 api.add_resource(Post, '/post')
 api.add_resource(Posts, '/posts')
 
